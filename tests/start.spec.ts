@@ -1,8 +1,10 @@
 import { test, expect } from '@playwright/test';
 
+const urlPrefix = 'https://www.saucedemo.com/';
+
 test('powinien zalogować użytkownika', async ({ page }) => {
   // 1. Otwórz stronę logowania
-  await page.goto('https://www.saucedemo.com/v1/');
+  await page.goto(`${urlPrefix}v1`);
 
   // 2. Wpisz login i hasło
   await page.fill('input[name="user-name"]', 'standard_user');
@@ -27,3 +29,7 @@ test('powinien zalogować użytkownika', async ({ page }) => {
 //   await page.waitForTimeout(3000);
 });
 
+
+
+
+// C:\Users\wladyslaw.kowalski_b\playwright-test\kowalski-test-001>npx playwright test tests/start.spec.ts --headed
