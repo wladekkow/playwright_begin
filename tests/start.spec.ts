@@ -23,11 +23,11 @@ test('powinien zalogować użytkownika', async ({ page }) => {
 
   await page.getByRole('button', { name: 'ADD TO CART' }).nth(0).click(); //znajdź buttony które mają name = add to cart i klikj pierwszy
 
-  await page.locator('.inventory_item', { has: page.locator('.inventory_item_name', { hasText: 'Sauce Labs Onesie' }) }).locator('button', { name: 'ADD TO CART' }).click();
+  await page.locator('.inventory_item', { has: page.locator('.inventory_item_name', { hasText: 'Sauce Labs Onesie' }) }).locator('button', { hasText: 'ADD TO CART' }).click();
 
  await page.click('.shopping_cart_link');
 
- await page.locator('.cart_item', { has: page.locator('.inventory_item_name', { hasText: 'Sauce Labs Backpack' }) }).locator('button', { name: 'Remove' }).click();
+ await page.locator('.cart_item', { has: page.locator('.inventory_item_name', { hasText: 'Sauce Labs Backpack' }) }).locator('button', { hasText: 'Remove' }).click();
 
  await page.click('button[name="checkout"]');
 
