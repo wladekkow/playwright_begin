@@ -51,7 +51,7 @@ test('powinien zalogować użytkownika', async ({ page }) => {
  
  await expect(page.getByText('Swag Labs')).toBeVisible();
  
- 
+ //komentarz tylko po to żeby zeobić commit
  
  
  
