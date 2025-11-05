@@ -1,19 +1,17 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/loginPage';
+import { LogoutPage } from '../pages/logoutPage';
 
-const urlPrefix = 'https://www.saucedemo.com/';
 
 test('powinien zalogować użytkownika', async ({ page }) => {
 
   const urlPrefix = 'https://www.saucedemo.com/';
   const loginPage = new LoginPage(page, urlPrefix);
+  const logoutPage = new LogoutPage(page);
+
 
   await loginPage.login();
 
-
-//   await page.click('div[class=bm-burger-button]');
-//   await page.getByRole('button', { name: 'Open Menu' }).click();
-//   await page.click('a[id="logout_sidebar_link"]');
 
   await page.getByRole('button', { name: 'ADD TO CART' }).nth(0).click(); //znajdź buttony które mają name = add to cart i klikj pierwszy
 
@@ -45,18 +43,15 @@ test('powinien zalogować użytkownika', async ({ page }) => {
  
  await expect(page.getByText('Swag Labs')).toBeVisible();
  
- //komentarz tylko po to żeby zeobić commit
+ await page.waitForTimeout(3000);
+ 
+ await logoutPage.logout();
  
  
  
  
- 
- 
- await page.waitForTimeout(5000);
+ await page.waitForTimeout(3000);
 
-
-
-//   await page.waitForTimeout(3000);
 });
 
 
