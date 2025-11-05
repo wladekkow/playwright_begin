@@ -27,7 +27,7 @@ test('powinien zalogować użytkownika', async ({ page }) => {
 
  await page.click('.shopping_cart_link');
 
- await page.locator('.cart_item', { has: page.locator('.inventory_item_name', { hasText: 'Sauce Labs Backpack' }) }).locator('button', { hasText: 'Remove' }).click();
+ await page.locator('.cart_item', { has: page.locator('.inventory_item_name', { hasText: 'Sauce Labs Backpack' }) }).getByRole('button', { name: 'Remove' }).click();
 
  await page.click('button[name="checkout"]');
 
