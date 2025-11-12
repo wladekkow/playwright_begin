@@ -10,7 +10,7 @@ test('powinien zalogować użytkownika', async ({ page }) => {
   const logoutPage = new LogoutPage(page);
 
 
-  await loginPage.login();
+  await loginPage.login('standard_user', 'secret_sauce');
 
 
   await page.getByRole('button', { name: 'ADD TO CART' }).nth(0).click(); //znajdź buttony które mają name = add to cart i klikj pierwszy
