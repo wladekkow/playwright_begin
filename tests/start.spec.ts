@@ -3,7 +3,7 @@ import { LoginPage } from '../pages/loginPage';
 import { LogoutPage } from '../pages/logoutPage';
 
 
-test('powinien zalogować użytkownika', async ({ page }) => {
+test('e2e zakup 1 rzeczy', async ({ page }) => {
 
   const urlPrefix = 'https://www.saucedemo.com/';
   const loginPage = new LoginPage(page, urlPrefix);
@@ -46,10 +46,7 @@ test('powinien zalogować użytkownika', async ({ page }) => {
  await page.waitForTimeout(3000);
  
  await logoutPage.logout();
- 
- 
- 
- 
+  
  await page.waitForTimeout(3000);
 
 });
