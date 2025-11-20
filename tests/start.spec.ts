@@ -2,16 +2,14 @@ import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/loginPage';
 import { LogoutPage } from '../pages/logoutPage';
 
+const urlPrefix = 'https://www.saucedemo.com/';
 
 test('e2e zakup 1 rzeczy', async ({ page }) => {
 
-  const urlPrefix = 'https://www.saucedemo.com/';
   const loginPage = new LoginPage(page, urlPrefix);
   const logoutPage = new LogoutPage(page);
 
-
   await loginPage.login('standard_user', 'secret_sauce');
-
 
   await page.getByRole('button', { name: 'ADD TO CART' }).nth(0).click(); //znajdź buttony które mają name = add to cart i klikj pierwszy
 
@@ -51,7 +49,19 @@ test('e2e zakup 1 rzeczy', async ({ page }) => {
 
 });
 
+test('login and logout', async ({ page }) => {
+  const loginPage = new LoginPage(page, urlPrefix);
+  const logoutPage = new LogoutPage(page);
+
+  await loginPage.login('standard_user', 'secret_sauce');
+
+  await logoutPage.logout();
+  await page.waitForTimeout(1000);
+
+});
+
 
 
 
 // C:\Users\wladyslaw.kowalski_b\playwright-test\kowalski-test-001>npx playwright test tests/start.spec.ts --headed
+// npx playwright test -g "login" --headed
