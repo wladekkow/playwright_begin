@@ -2,14 +2,18 @@ import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/loginPage';
 import { LogoutPage } from '../pages/logoutPage';
 
-const urlPrefix = 'https://www.saucedemo.com/';
+const baseUrl = 'https://www.saucedemo.com/';
+
+test.beforeEach(async ({ page }) => {
+  await page.goto(baseUrl);
+});
 
 test('e2e zakup 1 rzeczy', async ({ page }) => {
 
-  const loginPage = new LoginPage(page, urlPrefix);
+  const loginPage = new LoginPage(page);
   const logoutPage = new LogoutPage(page);
 
-  await loginPage.login('standard_user', 'secret_sauce');
+  await loginPage.login_successfully('standard_user', 'secret_sauce');
 
   await page.getByRole('button', { name: 'ADD TO CART' }).nth(0).click(); //znajdź buttony które mają name = add to cart i klikj pierwszy
 
@@ -50,12 +54,24 @@ test('e2e zakup 1 rzeczy', async ({ page }) => {
 });
 
 test('login and logout', async ({ page }) => {
-  const loginPage = new LoginPage(page, urlPrefix);
+  const loginPage = new LoginPage(page);
   const logoutPage = new LogoutPage(page);
 
-  await loginPage.login('standard_user', 'secret_sauce');
+  await loginPage.login_successfully('standard_user', 'secret_sauce');
 
   await logoutPage.logout();
+  await page.waitForTimeout(1000);
+
+});
+
+
+test('login on blocked user', async ({ page }) => {
+  const loginPage = new LoginPage(page);
+  const logoutPage = new LogoutPage(page);
+
+  await loginPage.login_without_success('locked_out_user', 'secret_sauce');
+
+  await expect(page.locator('button.error-button')).toBeVisible();
   await page.waitForTimeout(1000);
 
 });
